@@ -70,15 +70,16 @@ def read_data():
                 continue
 
             include.link[i].append(include.Link())
+            print(int(row[0]))
             include.link[i][int(row[2])].link_id = int(row[0])
             include.link[i][int(row[2])].from_node = int(row[1])
             include.link[i][int(row[2])].to_node = int(row[2])
             include.link[i][int(row[2])].distance = int(row[3])
             include.link[i][int(row[2])].spend_time = int(row[4])
 
-            if i == 99 and int(row[2]) == 100:
+            if int(row[0]) == 9999:
                 break
-    print(dir(include.link[0][1]))
+    print(dir(include.link[0][100]))
 
     #########################Agent##############################
     #   agent[vehicle_id]

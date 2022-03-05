@@ -27,6 +27,8 @@ ADMM_iteration = 100  # ADMM迭代次数
 ADMM_upperbound = 999999  # ADMM上界(初始值给一个极大值)
 ADMM_lowerbound = -999999  # ADMM下界(初始值给一个极小值)
 transport_time_limit = 50   # 单次最长运输时间限制
+agent_weight_limit = 2      # 车辆最大运输货物重量
+agent_volume_limit = 12     # 车辆最大运输货物体积
 fixed_cost = 200  # 固定成本200(启用车辆则需要添加)
 
 #   wait_flag(标记车辆是否由于时间窗进行等待标志位)
@@ -38,7 +40,8 @@ node = []  # 存储节点信息
 link = []  # 存储节点间的距离
 agent = []  # 存储车辆状态
 no_sever_node = []  # 记录没有访问过的节点
-
+sever_time = []     # 记录在每一次迭代中访问节点的次数  sever_time[ADMM_iteration][node_id]
+ADMM_iteration_cost_record = []    # 记录每一次迭代后的  iteration_cost_record[ADMM_iteration][vehicle_id]
 
 #####################object###########################
 ##############################
@@ -69,7 +72,6 @@ class Link():
         self.distance = 0
         self.spend_time = 0
 
-
 ###############################
 #   车辆参数：
 #       限重：2.0
@@ -93,7 +95,6 @@ class Agent:
         self.departure_time = 0  # 车辆离开节点时间
         self.arrival = 0  # 车辆到达节点时间
 
-
 ############################
 #   动态规划中的使用的对象
 ###########################
@@ -106,4 +107,8 @@ class CVSState:
         self.label_cost= 0
         self.label_cost_lr = 0
         self.from_node_id = 0
+        self.to_node_id = 0
+
+
+
 
