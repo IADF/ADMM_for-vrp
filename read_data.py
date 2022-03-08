@@ -65,20 +65,20 @@ def read_data():
                 include.link.append([])
             if int(row[2]) != len(include.link[i]):
                 include.link[i].append(include.Link())
-            if int(row[4]) > include.transport_time_limit:  # 运输时长过长的线路直接省去
-                include.link[i].append(include.Link())
-                continue
+            # if int(row[4]) > include.transport_time_limit:  # 运输时长过长的线路直接省去
+            #     include.link[i].append(include.Link())
+            #     continue
 
             include.link[i].append(include.Link())
+            print(int(row[0]))
             include.link[i][int(row[2])].link_id = int(row[0])
             include.link[i][int(row[2])].from_node = int(row[1])
             include.link[i][int(row[2])].to_node = int(row[2])
             include.link[i][int(row[2])].distance = int(row[3])
             include.link[i][int(row[2])].spend_time = int(row[4])
 
-            if i == 99 and int(row[2]) == 100:
+            if int(row[0]) == 9999:
                 break
-    print(dir(include.link[0][1]))
 
     #########################Agent##############################
     #   agent[vehicle_id]
